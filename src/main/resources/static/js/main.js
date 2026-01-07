@@ -37,10 +37,11 @@ function onConnected() {
     stompClient.subscribe('/topic/public', onMessageReceived);
 
     // Tell your username to the server
-    stompClient.send("/app/chat.addUser",
-        {},
-        JSON.stringify({sender: username, type: 'JOIN'})
-    )
+    stompClient.send(
+      "/app/chat.addUser",
+      {},
+      JSON.stringify({ sender: username, type: "Connected" })
+    );
 
     connectingElement.classList.add('hidden');
 }
@@ -56,9 +57,9 @@ function sendMessage(event) {
     var messageContent = messageInput.value.trim();
     if(messageContent && stompClient) {
         var chatMessage = {
-            sender: username,
-            content: messageInput.value,
-            type: 'CHAT'
+          sender: username,
+          content: messageInput.value,
+          type: "Chat",
         };
         stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
@@ -72,26 +73,26 @@ function onMessageReceived(payload) {
 
     var messageElement = document.createElement('li');
 
-    if(message.type === 'JOIN') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
-    } else if (message.type === 'LEAVE') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' left!';
+    if (message.type === "Connected") {
+      messageElement.classList.add("event-message");
+      message.content = message.sender + " joined!";
+    } else if (message.type === "Disconnected") {
+      messageElement.classList.add("event-message");
+      message.content = message.sender + " left!";
     } else {
-        messageElement.classList.add('chat-message');
+      messageElement.classList.add("chat-message");
 
-        var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.sender[0]);
-        avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+      var avatarElement = document.createElement("i");
+      var avatarText = document.createTextNode(message.sender[0]);
+      avatarElement.appendChild(avatarText);
+      avatarElement.style["background-color"] = getAvatarColor(message.sender);
 
-        messageElement.appendChild(avatarElement);
+      messageElement.appendChild(avatarElement);
 
-        var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(message.sender);
-        usernameElement.appendChild(usernameText);
-        messageElement.appendChild(usernameElement);
+      var usernameElement = document.createElement("span");
+      var usernameText = document.createTextNode(message.sender);
+      usernameElement.appendChild(usernameText);
+      messageElement.appendChild(usernameElement);
     }
 
     var textElement = document.createElement('p');
