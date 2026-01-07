@@ -28,18 +28,20 @@ This is a **simple real-time chat application** built with **Spring Boot** and *
 1. **Clone the repository**
 
 ```bash
-git clone <repository_url>
+git clone https://github.com/rahmoni47/chatappWithWebsocket
 cd <repository_folder>
 
-    Build the Spring Boot application
+2. **Build the Spring Boot application**
+
+```bash
 
 ./mvnw clean install
 
-    Run the application
+Run the application
 
 ./mvnw spring-boot:run
 
-    The server runs on http://localhost:8080
+    The server runs on http://localhost:8081
 
     WebSocket endpoint: /ws
 
