@@ -13,9 +13,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        //seting where the broadcast path sould be
+        //setting where the broadcast path should be
         registry.enableSimpleBroker("/topic");
-        //seting where the procces by the system path sould be
+        //setting where the process by the system path should be
         registry.setApplicationDestinationPrefixes("/app");
     }
 }
