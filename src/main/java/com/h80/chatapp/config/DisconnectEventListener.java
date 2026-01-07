@@ -33,7 +33,7 @@ public class DisconnectEventListener {
                                             .type(MessageType.Disconnected)
                                             .sender(username)
                     .build();
-            messager.convertAndSend(chatMessage);
+            messager.convertAndSend("/topic/public",chatMessage);
         }
     }
 }
